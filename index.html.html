@@ -1,0 +1,1062 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>東京2025夏 · 旅行手冊</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@600;700&family=Noto+Sans+TC:wght@400;500;700&display=swap');
+:root {
+  --washi:#f7f3ec; --ink:#2a1f14; --ink-mid:#5c4a35; --ink-light:#9a8470;
+  --gold:#c9893a; --gold-light:#e8c47a; --gold-pale:#fdf3e0;
+  --moss:#4a6741; --indigo:#2c3e7a; --red:#c0392b;
+  --cream:#faf6f0; --white:#ffffff; --border:rgba(201,137,58,0.18);
+  --shadow-sm:0 1px 4px rgba(42,31,20,0.08);
+  --shadow-md:0 3px 12px rgba(42,31,20,0.12);
+  --shadow-lg:0 6px 24px rgba(42,31,20,0.15);
+  --radius:14px; --radius-sm:10px; --header-h:108px;
+}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+html{font-size:16px}
+body{font-family:'Noto Sans TC',-apple-system,sans-serif;background:var(--washi);color:var(--ink);min-height:100vh;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E")}
+
+/* HEADER */
+.header{position:fixed;top:0;left:0;right:0;z-index:200;
+  background:linear-gradient(150deg,#1e150d 0%,#2e2010 50%,#1e2d5e 100%);
+  box-shadow:0 2px 20px rgba(0,0,0,0.35)}
+.header-top{display:flex;align-items:center;justify-content:space-between;padding:14px 18px 10px}
+.header-title{font-family:'Noto Serif TC',serif;font-size:18px;font-weight:700;color:var(--gold-light);letter-spacing:.04em;line-height:1.2}
+.header-sub{font-size:10px;color:rgba(232,196,122,0.5);letter-spacing:.12em;margin-top:2px}
+.header-dates{font-size:12px;color:#e8b4b8;font-weight:500}
+.header-offline{font-size:10px;color:rgba(232,196,122,.45);margin-top:2px;letter-spacing:.06em}
+.tab-bar{display:flex;border-top:1px solid rgba(232,196,122,.12);padding:0 6px}
+.tab{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;
+  padding:9px 6px 10px;cursor:pointer;border-bottom:3px solid transparent;
+  transition:all .2s ease;min-height:52px}
+.tab-icon{font-size:20px;line-height:1}
+.tab-label{font-size:11px;font-weight:500;color:rgba(232,196,122,.45);letter-spacing:.04em}
+.tab.active .tab-label{color:var(--gold-light)}
+.tab.active{border-bottom-color:var(--gold-light)}
+.tab:active{background:rgba(232,196,122,.06)}
+
+/* PANELS */
+.panel{display:none;padding:16px 14px 100px;position:relative;z-index:1}
+.panel.active{display:block}
+.panel-spacer{height:var(--header-h)}
+
+/* HERO */
+.hero{background:linear-gradient(150deg,#1e150d 0%,#2e2010 45%,#1e2d5e 100%);
+  border-radius:var(--radius);padding:20px 18px 18px;margin-bottom:16px;
+  position:relative;overflow:hidden;box-shadow:var(--shadow-lg)}
+.hero::after{content:'東京';position:absolute;right:-8px;bottom:-12px;
+  font-family:'Noto Serif TC',serif;font-size:100px;font-weight:700;
+  color:rgba(232,196,122,0.05);line-height:1;pointer-events:none}
+.hero-title{font-family:'Noto Serif TC',serif;font-size:22px;font-weight:700;
+  color:var(--gold-light);letter-spacing:.06em}
+.hero-sub{font-size:12px;color:rgba(232,196,122,.55);margin-top:5px}
+.hero-chips{display:flex;gap:7px;margin-top:14px;flex-wrap:wrap}
+.hero-chip{background:rgba(232,196,122,.12);border:1px solid rgba(232,196,122,.25);
+  color:var(--gold-light);font-size:11px;font-weight:500;padding:5px 11px;border-radius:20px}
+.hotel-row{display:flex;gap:8px;margin-top:12px}
+.hotel-card{flex:1;background:rgba(255,255,255,.07);border:1px solid rgba(232,196,122,.12);
+  border-radius:10px;padding:10px 11px}
+.hotel-label{font-size:10px;color:rgba(232,196,122,.45);letter-spacing:.08em}
+.hotel-name{font-size:12px;color:rgba(255,255,255,.88);margin-top:3px;font-weight:500;line-height:1.3}
+
+/* DAY CARDS */
+.day-card{background:var(--white);border-radius:var(--radius);margin-bottom:10px;
+  box-shadow:var(--shadow-sm);border:1px solid var(--border);overflow:hidden;transition:box-shadow .2s}
+.day-card.open{box-shadow:var(--shadow-md)}
+.day-header{display:flex;align-items:center;justify-content:space-between;
+  padding:14px 16px;cursor:pointer;user-select:none;min-height:72px;
+  transition:background .15s}
+.day-header:active{background:rgba(201,137,58,.05)}
+.day-header-left{display:flex;align-items:center;gap:12px;flex:1;min-width:0}
+.day-badge{width:48px;height:48px;border-radius:12px;flex-shrink:0;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  font-family:'Noto Serif TC',serif;box-shadow:0 2px 8px rgba(0,0,0,0.2)}
+.day-badge .dn{font-size:16px;font-weight:700;color:white;line-height:1}
+.day-badge .dl{font-size:9px;color:rgba(255,255,255,.75);margin-top:2px;letter-spacing:.04em}
+.day-info{flex:1;min-width:0}
+.day-title{font-family:'Noto Serif TC',serif;font-size:15px;font-weight:600;
+  color:var(--ink);line-height:1.3}
+.day-date{font-size:11px;color:var(--ink-light);margin-top:3px}
+.chevron-wrap{width:32px;height:32px;border-radius:50%;background:var(--gold-pale);
+  border:1px solid rgba(201,137,58,.2);display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;margin-left:8px;transition:background .2s,transform .3s}
+.day-card.open .chevron-wrap{background:var(--gold);transform:rotate(180deg)}
+.chevron-wrap svg{width:14px;height:14px}
+.chevron-wrap svg path{stroke:var(--gold);transition:stroke .2s}
+.day-card.open .chevron-wrap svg path{stroke:white}
+.day-body{display:none;padding:0 16px 16px;animation:slideDown .2s ease}
+.day-card.open .day-body{display:block}
+@keyframes slideDown{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:translateY(0)}}
+.day-body::before{content:'';display:block;height:1px;background:var(--border);margin-bottom:12px}
+
+/* ACTIVITIES */
+.activity{display:flex;gap:10px;padding:10px 0;border-bottom:1px solid rgba(201,137,58,.07)}
+.activity:last-child{border-bottom:none}
+.act-time{width:46px;flex-shrink:0;font-size:11px;color:var(--gold);font-weight:600;
+  text-align:right;padding-top:2px;line-height:1.3}
+.act-line{width:20px;flex-shrink:0;display:flex;flex-direction:column;align-items:center}
+.act-dot-outer{width:18px;height:18px;border-radius:50%;display:flex;align-items:center;
+  justify-content:center;flex-shrink:0;margin-top:1px}
+.act-dot-inner{width:8px;height:8px;border-radius:50%}
+.act-line.def .act-dot-outer{background:rgba(201,137,58,.12)}
+.act-line.def .act-dot-inner{background:var(--gold)}
+.act-line.tr .act-dot-outer{background:rgba(44,62,122,.1)}
+.act-line.tr .act-dot-inner{background:var(--indigo)}
+.act-line.st .act-dot-outer{background:rgba(74,103,65,.1)}
+.act-line.st .act-dot-inner{background:var(--moss)}
+.act-line.dr .act-dot-outer{background:rgba(26,107,58,.1)}
+.act-line.dr .act-dot-inner{background:#1a6b3a}
+.act-line.warn .act-dot-outer{background:rgba(192,57,43,.1)}
+.act-line.warn .act-dot-inner{background:var(--red)}
+.act-content{flex:1;min-width:0}
+.act-name{font-size:14px;font-weight:500;color:var(--ink);line-height:1.35}
+.act-note{font-size:12px;color:var(--ink-mid);margin-top:4px;line-height:1.55}
+.tags{display:flex;flex-wrap:wrap;gap:5px;margin-top:6px}
+.tag{font-size:10px;font-weight:600;padding:3px 8px;border-radius:20px;letter-spacing:.03em;line-height:1.4}
+.tt{background:#dde3f0;color:#1a2a6a}
+.tf{background:#fce8d5;color:#7a3010}
+.ts{background:#e5f0e3;color:#2d5426}
+.tb{background:#ddf0e2;color:#1a5530}
+.tw{background:#fdecea;color:#a02020}
+.td{background:#e0f0e5;color:#1a5a30}
+
+/* TRANSPORT */
+.transport-section{margin-bottom:14px}
+.ts-header{background:linear-gradient(135deg,#1e2d5e,#162050);padding:13px 16px;border-radius:var(--radius) var(--radius) 0 0}
+.ts-title{font-family:'Noto Serif TC',serif;font-size:14px;font-weight:600;color:white}
+.ts-date{font-size:11px;color:rgba(255,255,255,.55);margin-top:3px}
+.steps{background:var(--white);border-radius:0 0 var(--radius) var(--radius);overflow:hidden;
+  box-shadow:var(--shadow-md);border:1px solid rgba(44,62,122,.1);border-top:none}
+.step{display:flex;align-items:stretch;border-bottom:1px solid #f0ede6;cursor:pointer;
+  transition:background .15s;min-height:60px}
+.step:last-child{border-bottom:none}
+.step:active{background:#faf6f0}
+.step.open{background:#fdf9f4}
+.step-num-col{width:44px;flex-shrink:0;background:#f8f4ee;display:flex;align-items:center;
+  justify-content:center;font-family:'Noto Serif TC',serif;font-size:15px;font-weight:700;
+  color:var(--gold);border-right:1px solid #f0ede6}
+.step-icon-col{width:40px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:18px}
+.step-body{flex:1;padding:13px 10px 13px 2px}
+.step-action{font-size:14px;font-weight:500;color:var(--ink);line-height:1.35}
+.step-detail{display:none;font-size:12px;color:var(--ink-mid);margin-top:8px;line-height:1.65;
+  background:var(--washi);padding:10px 12px;border-radius:8px;border-left:3px solid var(--gold)}
+.step.open .step-detail{display:block}
+.line-jr{border-left-color:#f77f00}
+.line-metro{border-left-color:#b5060f}
+.line-bus{border-left-color:var(--indigo)}
+.line-drive{border-left-color:#2a8a3a}
+.line-walk{border-left-color:#aaa}
+.step-arrow-col{width:36px;flex-shrink:0;display:flex;align-items:center;justify-content:center}
+.step-arrow-icon{width:26px;height:26px;border-radius:50%;background:#f0ede6;
+  display:flex;align-items:center;justify-content:center;transition:background .2s,transform .25s}
+.step-arrow-icon svg{width:12px;height:12px}
+.step-arrow-icon svg path{stroke:var(--ink-light)}
+.step.open .step-arrow-icon{background:var(--gold);transform:rotate(90deg)}
+.step.open .step-arrow-icon svg path{stroke:white}
+
+/* QUICK REF */
+.quick-ref{background:var(--gold-pale);border:1px solid rgba(201,137,58,.25);
+  border-radius:var(--radius-sm);padding:14px 16px;margin-bottom:16px}
+.qr-title{font-family:'Noto Serif TC',serif;font-size:13px;font-weight:600;
+  color:var(--gold);margin-bottom:10px}
+.qr-grid{display:grid;grid-template-columns:1fr 1fr;gap:7px}
+.qr-item{font-size:12px;color:var(--ink);display:flex;align-items:center;gap:6px}
+
+/* FLIGHT BANNER */
+.flight-banner{background:linear-gradient(135deg,#1e2d5e,#2c3e7a);
+  border-radius:var(--radius-sm);padding:12px 14px;margin-bottom:14px}
+.flight-row{display:flex;align-items:center;justify-content:space-between;color:white}
+.flight-num{font-family:'Noto Serif TC',serif;font-size:16px;font-weight:700;color:var(--gold-light)}
+.flight-route{font-size:12px;color:rgba(255,255,255,.75);margin-top:2px}
+.flight-time{text-align:right}
+.flight-dep{font-size:15px;font-weight:700;color:white}
+.flight-arr{font-size:11px;color:rgba(255,255,255,.6);margin-top:2px}
+.flight-divider{width:1px;background:rgba(255,255,255,.2);height:32px;margin:0 8px}
+.flight-pax{font-size:10px;color:rgba(232,196,122,.6);margin-top:8px;letter-spacing:.04em}
+
+/* STROLLER */
+.tip-category{font-family:'Noto Serif TC',serif;font-size:13px;font-weight:700;
+  color:var(--gold);letter-spacing:.06em;padding:14px 0 8px;
+  border-bottom:1px solid var(--border);margin-bottom:10px}
+.tip-card{background:var(--white);border-radius:var(--radius-sm);padding:14px 15px;
+  margin-bottom:9px;box-shadow:var(--shadow-sm);border-left:4px solid var(--gold)}
+.tip-card.warn{border-left-color:var(--red)}
+.tip-card.good{border-left-color:var(--moss)}
+.tip-card.info{border-left-color:var(--indigo)}
+.tip-title{font-size:14px;font-weight:600;color:var(--ink);margin-bottom:5px;line-height:1.3}
+.tip-body{font-size:13px;color:var(--ink-mid);line-height:1.65}
+
+/* BACKUP */
+.backup-title{font-family:'Noto Serif TC',serif;font-size:13px;font-weight:700;
+  color:var(--gold);padding:14px 0 8px;border-bottom:1px solid var(--border);margin-bottom:10px}
+.backup-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.backup-card{background:var(--white);border-radius:var(--radius-sm);padding:11px 12px;
+  box-shadow:var(--shadow-sm);border-left:3px solid var(--gold)}
+.backup-card.alt{border-left-color:var(--indigo)}
+.backup-card.rain{border-left-color:var(--red);grid-column:span 2}
+.backup-card.food{border-left-color:var(--moss)}
+.backup-name{font-size:12px;font-weight:600;color:var(--ink);line-height:1.3}
+.backup-info{font-size:11px;color:var(--ink-light);margin-top:3px;line-height:1.5}
+
+.wa-divider{text-align:center;color:var(--gold);font-size:13px;letter-spacing:10px;
+  opacity:.4;margin:8px 0 12px}
+.footer-note{text-align:center;font-size:12px;color:var(--ink-light);padding-bottom:8px}
+.bottom-fade{position:fixed;bottom:0;left:0;right:0;height:50px;pointer-events:none;
+  z-index:50;background:linear-gradient(to top,var(--washi),transparent)}
+
+/* SVG arrow shorthand */
+.arr svg{width:14px;height:14px}
+.arr svg path{stroke:var(--gold)}
+.day-card.open .arr svg path{stroke:white}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-top">
+    <div>
+      <div class="header-title">🗼 東京2025夏之旅</div>
+      <div class="header-sub">TOKYO SUMMER 2025 · ANA FT3TZV</div>
+    </div>
+    <div style="text-align:right">
+      <div class="header-dates">6月18–23日</div>
+      <div class="header-offline">離線可用 ✓</div>
+    </div>
+  </div>
+  <div class="tab-bar">
+    <div class="tab active" onclick="switchTab('itinerary')"><span class="tab-icon">📅</span><span class="tab-label">行程</span></div>
+    <div class="tab" onclick="switchTab('transport')"><span class="tab-icon">🚃</span><span class="tab-label">交通</span></div>
+    <div class="tab" onclick="switchTab('stroller')"><span class="tab-icon">🛺</span><span class="tab-label">嬰兒車</span></div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════
+     PANEL 1: ITINERARY
+══════════════════════════════ -->
+<div id="panel-itinerary" class="panel active">
+<div class="panel-spacer"></div>
+
+<div class="hero">
+  <div class="hero-title">行程總覽</div>
+  <div class="hero-sub">6日 · 東京市內 × 河口湖 × 富士山自駕</div>
+  <div class="hero-chips">
+    <div class="hero-chip">✈️ D1 18/06 NH812</div>
+    <div class="hero-chip">🏙️ D2–D3 東京</div>
+    <div class="hero-chip">🚗 D4–D5 河口湖</div>
+    <div class="hero-chip">✈️ D6 23/06 NH811</div>
+  </div>
+  <div class="hotel-row">
+    <div class="hotel-card">
+      <div class="hotel-label">📍 東京（D1–D3）</div>
+      <div class="hotel-name">新宿酒店</div>
+    </div>
+    <div class="hotel-card">
+      <div class="hotel-label">📍 河口湖（D4–D5）</div>
+      <div class="hotel-name">富士吟景（一泊兩食）</div>
+    </div>
+  </div>
+</div>
+
+<!-- ── D1 ── -->
+<div class="day-card open" id="day1">
+  <div class="day-header" onclick="toggleDay('day1')">
+    <div class="day-header-left">
+      <div class="day-badge" style="background:linear-gradient(135deg,#34495e,#2c3a4a)">
+        <div class="dn">D1</div><div class="dl">抵達</div>
+      </div>
+      <div class="day-info">
+        <div class="day-title">✈️ 抵達東京 · 新宿</div>
+        <div class="day-date">18/06（四）· NH812 HKG→NRT</div>
+      </div>
+    </div>
+    <div class="chevron-wrap arr"><svg viewBox="0 0 14 14" fill="none"><path d="M3 5l4 4 4-4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+  </div>
+  <div class="day-body">
+    <div class="activity">
+      <div class="act-time">09:30</div>
+      <div class="act-line tr"><div class="act-dot-outer"><div class="act-dot-inner"></div></div></div>
+      <div class="act-content">
+        <div class="act-name">✈️ NH812 HKG 起飛</div>
+        <div class="act-note">香港國際機場 · 訂位編號 FT3TZV</div>
+        <div class="tags"><span class="tag tt">ANA NH812</span></div>
+      </div>
+    </div>
+    <div class="activity">
+      <div class="act-time">15:10</div>
+      <div class="act-line tr"><div class="act-dot-outer"><div class="act-dot-inner"></div></div></div>
+      <div class="act-content">
+        <div class="act-name">🛬 NRT 成田機場抵達</div>
+        <div class="act-note">辦理入境、提取行李</div>
+        <div class="tags"><span class="tag tt">乘客 3人</span></div>
+      </div>
+    </div>
+    <div class="activity">
+      <div class="act-time">~16:30</div>
+      <div class="act-line tr"><div class="act-dot-outer"><div class="act-dot-inner"></div></div></div>
+      <div class="act-content">
+        <div class="act-name">🚌 利木津巴士 / 鐵路NEX → 新宿酒店</div>
+        <div class="act-note">約90分鐘 · Paid by AEON JCB ¥329,346</div>
+        <div class="tags"><span class="tag tt">利木津/NEX</span><span class="tag tb">嬰兒車放行李艙</span></div>
+      </div>
+    </div>
+    <div class="activity">
+      <div class="act-time">晚上</div>
+      <div class="act-line st"><div class="act-dot-outer"><div class="act-dot-inner"></div></div></div>
+      <div class="act-content">
+        <div class="act-name">🛍️ 新宿 探索購物</div>
+        <div class="act-note">UNIQLO UTme · Alpen TOKYO · Blue Bottle · Yodobashi · Donki · Sports Depo · 世界堂</div>
+        <div class="tags"><span class="tag ts">購物</span></div>
+      </div>
+    </div>
+    <div class="activity">
+      <div class="act-time">18:30</div>
+      <div class="act-line def"><div class="act-dot-outer"><div class="act-dot-inner"></div></div></div>
+      <div class="act-content">
+        <div class="act-name">🐟 晚餐：釣魚茶屋（已訂位）</div>
+        <div class="tags"><span class="tag tf">晚餐已訂 ✓</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── D2 ── -->
+<div class="day-card" id="day2">
+  <div class="day-header" onclick="toggleDay('day2')">
+    <div class="day-header-left">
+      <div class="day-badge" style="background:linear-gradient(135deg,#2c3e7a,#1a2860)">
+        <div class="dn">D2</div><div class="dl">淺草</div>
+      </div>
+      <div class="day-info">
+        <div class="day-title">新宿 → 淺草 → 新宿</div>
+        <div class="day-date">19/06（五）· 東京市內</div>
+      </div>
+    </div>
+    <div class="chevron-wrap arr"><svg viewBox="0 0 14 14" fill="none"><path d="M3 5l4 4 4-4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+  </div>
+  <div class="day-body">
+    <div class="activity">
+      <div class="act-time">早上</div>
+      <div class="act-line def"><div class="act-dot-outer"><div class="act-dot-inner"></div></div></div>
+      <div class="act-content"><div class="act-name">☕ Breakfast @hotel</div></div>
+    </div>
+    <div class="activity">
+      <div class="act-time">~09:30</div>
+      <div class="act-line tr"><div class="act-dot-outer"><div class="act-dot-inner"></div></div></div>
+      <div class="act-content">
+        <div class="act-name">🚃 新宿 → 淺草（30–45分鐘）</div>
+        <div class="act-note">JR山手線→上野 → Metro銀座線→淺草<br>出口：淺草站 1號出口（升降機，近雷門）</div>
+        <div class="tags"><span class="tag tt">JR + 銀座線</span><span class="tag tb">1號出口升降機</span></div>
+      </div>
+    </div>
+    <div class="activity">
+      <div class="act-time">10:30</div>
+      <div class="act-line st"><div class="act-dot-outer"><div class="act-dot-inner"></div></div></div>
+      <div class="act-content">
+        <div class="act-name">👘 淺草 租浴衣 · 淺草寺 · 雷門</div>
+        <div class="act-note">隅田公園 繡球花</div>
+        <div class="tags"><span class="tag ts">景點</span><span class="tag tb">平坦可推車</span></div>
+      </div>
+    </div>
+    <div class="activity">
+      <div class="act-time">12:00</div>
+      <div class="act-line def"><div class="act-dot-outer"><div class="act-dot-inner"></div></div></div>
+      <div class="act-content"><div class="act-name">😴 小朋友休息時間</div></div>
+    </div>
+    <div class="activity">
+      <div class="act-time">下午</div>
+      <div class="act-line tr"><div class="act-dot-outer"><div class="act-dot-inner"></div></div></div>
+      <div class="act-content">
+        <div class="act-name">🚃 淺草 → 新宿</div>
+        <div class="act-note">Metro銀座線→上野 → JR山手線→新宿，約40分鐘</div>
+        <div class="tags"><span class="tag tt">返回新宿</span></div>
+      </div>
+    </div>
+    <div class="activity">
+      <div class="act-time">下午</div>
+      <div class="act-line st"><div class="act-dot-outer"><div class="act-dot-inner"></div></div></div>
+      <div class="act-content">
+        <div class="act-name">🛍️ 新宿 繼續購物</div>
+        <div class="act-note">UNIQLO UTme · Alpen · Blue Bottle · Yodobashi · Donki · Sports Depo · 世界堂</div>
+        <div class="tags"><span class="tag ts">購物</span></div>
+      </div>
+    </div>
+    <div class="activity">
+      <div class="act-time">晚上</div>
+      <div class="act-line def"><div class="act-dot-outer"><div class="act-dot-inner"></div></div></div>
+      <div class="act-content">
+        <div class="act-name">🍽️ 晚餐 @新宿</div>
+        <div class="tags"><span class="tag tf">晚餐</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── D3 ── -->
+<div class="day-card" id="day3">
+  <div class="day-header" onclick="toggleDay('day3')">
+    <div class="day-header-left">
+      <div class="day-badge" style="background:linear-gradient(135deg,#2c3e7a,#1a2860)">
+        <div class="dn">D3</div><div class="dl">大宮</div>
+      </div>
+      <div class="day-info">
+        <div class="day-title">新宿→大宮→淺草→池袋</div>
+        <div class="day-date">20/06（六）· 東京市內</div>
+      </div>
+    </div>
+    <div class="chevron-wrap arr"><svg viewBox="0 0 14 14" fill="none"><path d="M3 5l4 4 4-4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+  </div>
+  <div class="day-body">
+    <div class="activity">
+      <div class="act-time">早上</div>
+      <div class="act-line def"><div class="act-dot-outer"><div class="act-dot-inner"></div></div></div>
+      <div class="act-content"><div class="act-name">☕ Breakfast @hotel</div></div>
+    </div>
+    <div class="activity">
+      <div class="act-time">~09:00</div>
+      <div class="act-line tr"><div class="act-dot-outer"><div class="act-dot-inner"></div></div></div>
+      <div class="act-content">
+        <div class="act-name">🚃 新宿 → 大宮（60分鐘）</div>
+        <div class="act-note">湘南新宿線（快速）→ 大宮站2號出口<br>→ ニューシャトル → 鐵道博物館站（3分鐘）</div>
+        <div class="tags"><span class="tag tt">湘南新宿線</span></div>
+      </div>
+    </div>
+    <div class="activity">
+      <div class="act-time">10:00</div>
+      <div class="act-line st"><div class="act-dot-outer"><div class="act-dot-inner"></div></div></div>
+      <div class="act-content">
+        <div class="act-name">🚆 大宮鐵路博物館</div>
+        <div class="act-note">10:00–18:00 · 入場費另計 · Lunch @博物館</div>
+        <div class="tags"><span class="tag ts">景點</span><span class="tag tb">升降機完善</span></div>
+      </div>
+    </div>
+    <div class="activity">
+      <div class="act-time">下午</div>
+      <div class="act-line tr"><div class="act-dot-outer"><div class="act-dot-inner"></div></div></div>
+      <div class="act-content">
+        <div class="act-name">🚃 大宮 → 淺草 → 池袋</div>
+        <div class="act-note">大宮→上野（JR）→淺草（銀座線）→上野→池袋（JR山手線）</div>
+        <div class="tags"><span class="tag tt">JR + 銀座線</span></div>
+      </div>
+    </div>
+    <div class="activity">
+      <div class="act-time">傍晚</div>
+      <div class="act-line st"><div class="act-dot-outer"><div class="act-dot-inner"></div></div></div>
+      <div class="act-content">
+        <div class="act-name">🎡 池袋 太陽城 Sunshine City</div>
+        <div class="act-note">10:00–20:00 · 寶可夢中心 · ANIMATE · Round 1 夾公仔 · Gashacoco 扭蛋 · 陽光60 TENBOU PARK</div>
+        <div class="tags"><span class="tag ts">室內</span><span class="tag tb">嬰兒車暢通</span></div>
+      </div>
+    </div>
+    <div class="activity">
+      <div class="act-time">晚上</div>
+      <div class="act-line def"><div class="act-dot-outer"><div class="act-dot-inner"></div></div></div>
+      <div class="act-content">
+        <div class="act-name">🍳 晚餐：Yellow蛋包飯 / Negishi牛舌飯</div>
+        <div class="tags"><span class="tag tf">晚餐</span></div>
+      </div>
+    </div>
+    <div class="activity">
+      <div class="act-time">夜</div>
+      <div class="act-line tr"><div class="act-dot-outer"><div class="act-dot-inner"></div></div></div>
+      <div class="act-content">
+        <div class="act-name">🚃 池袋 → 新宿（返酒店）</div>
+        <div class="act-note">JR山手線，約10分鐘</div>
+        <div class="tags"><span class="tag tt">JR山手線</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── D4 ── -->
+<div class="day-card" id="day4">
+  <div class="day-header" onclick="toggleDay('day4')">
+    <div class="day-header-left">
+      <div class="day-badge" style="background:linear-gradient(135deg,#1a6b3a,#0d4a26)">
+        <div class="dn">D4</div><div class="dl">自駕</div>
+      </div>
+      <div class="day-info">
+        <div class="day-title">新宿 → 河口湖（自駕）</div>
+        <div class="day-date">21/06（日）· 自駕開始</div>
+      </div>
+    </div>
+    <div class="chevron-wrap arr"><svg viewBox="0 0 14 14" fill="none"><path d="M3 5l4 4 4-4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+  </div>
+  <div class="day-body">
+    <div class="activity">
+      <div class="act-time">早上</div>
+      <div class="act-line def"><div class="act-dot-outer"><div class="act-dot-inner"></div></div></div>
+      <div class="act-content"><div class="act-name">☕ Breakfast @hotel</div></div>
+    </div>
+    <div class="activity">
+      <div class="act-time">08:00</div>
+      <div class="act-line dr"><div class="act-dot-outer"><div class="act-dot-inner"></div></div></div>
+      <div class="act-content">
+        <div class="act-name">🚗 8:00 取車 · 9:00 出發</div>
+        <div class="act-note">Paid by DSB BA ¥287,250</div>
+        <div class="tags"><span class="tag td">自駕</span><span class="tag tb">嬰兒車放尾箱</span></div>
+      </div>
+    </div>
+    <div class="activity">
+      <div class="act-time">09:00</div>
+      <div class="act-line dr"><div class="act-dot-outer"><div class="act-dot-inner"></div></div></div>
+      <div class="act-content">
+        <div class="act-name">🛣️ 自駕 新宿→河口湖（約2–2.5小時）</div>
+        <div class="act-note">首都高速 → 中央高速 → 河口湖IC<br>談合坂SA 中途休息（設尿布台）</div>
+        <div class="tags"><span class="tag td">中央高速</span></div>
+      </div>
+    </div>
+    <div class="activity">
+      <div class="act-time">~11:30</div>
+      <div class="act-line st"><div class="act-dot-outer"><div class="act-dot-inner"></div></div></div>
+      <div class="act-content">
+        <div class="act-name">🦁 富士野生動物園</div>
+        <div class="act-note">自駕叢林巴士 9:00–16:00 · ¥1,000/人<br>Lunch @動物園</div>
+        <div class="tags"><span class="tag ts">景點</span></div>
+      </div>
+    </div>
+    <div class="activity">
+      <div class="act-time">下午</div>
+      <div class="act-line dr"><div class="act-dot-outer"><div class="act-dot-inner"></div></div></div>
+      <div class="act-content">
+        <div class="act-name">🚗 → 富士吟景 Check-in</div>
+        <div class="tags"><span class="tag td">自駕直達</span></div>
+      </div>
+    </div>
+    <div class="activity">
+      <div class="act-time">18:30</div>
+      <div class="act-line def"><div class="act-dot-outer"><div class="act-dot-inner"></div></div></div>
+      <div class="act-content">
+        <div class="act-name">🍽️ 晚餐 @富士吟景</div>
+        <div class="tags"><span class="tag tf">一泊兩食 含晚餐</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── D5 ── -->
+<div class="day-card" id="day5">
+  <div class="day-header" onclick="toggleDay('day5')">
+    <div class="day-header-left">
+      <div class="day-badge" style="background:linear-gradient(135deg,#1a6b3a,#0d4a26)">
+        <div class="dn">D5</div><div class="dl">富士山</div>
+      </div>
+      <div class="day-info">
+        <div class="day-title">馬飼野牧場 × 本宮淺間大社</div>
+        <div class="day-date">22/06（一）· 河口湖</div>
+      </div>
+    </div>
+    <div class="chevron-wrap arr"><svg viewBox="0 0 14 14" fill="none"><path d="M3 5l4 4 4-4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+  </div>
+  <div class="day-body">
+    <div class="activity">
+      <div class="act-time">早上</div>
+      <div class="act-line def"><div class="act-dot-outer"><div class="act-dot-inner"></div></div></div>
+      <div class="act-content"><div class="act-name">☕ Breakfast @富士吟景（一泊兩食）</div></div>
+    </div>
+    <div class="activity">
+      <div class="act-time">09:30</div>
+      <div class="act-line st"><div class="act-dot-outer"><div class="act-dot-inner"></div></div></div>
+      <div class="act-content">
+        <div class="act-name">🐄 馬飼野牧場（3小時）</div>
+        <div class="act-note">9:30–17:30 · ¥1,200/人 · 免費停車<br>Lunch @牧場</div>
+        <div class="tags"><span class="tag ts">景點</span><span class="tag tw">草地路段較軟</span></div>
+      </div>
+    </div>
+    <div class="activity">
+      <div class="act-time">~13:30</div>
+      <div class="act-line dr"><div class="act-dot-outer"><div class="act-dot-inner"></div></div></div>
+      <div class="act-content">
+        <div class="act-name">🚗 自駕 → 本宮淺間大社（25分鐘）</div>
+        <div class="tags"><span class="tag td">自駕</span></div>
+      </div>
+    </div>
+    <div class="activity">
+      <div class="act-time">14:00</div>
+      <div class="act-line st"><div class="act-dot-outer"><div class="act-dot-inner"></div></div></div>
+      <div class="act-content">
+        <div class="act-name">⛩️ 本宮淺間大社 9:00–17:00</div>
+        <div class="act-note">主參道可推嬰兒車 · 石階部分需抱嬰兒</div>
+        <div class="tags"><span class="tag ts">景點</span><span class="tag tw">石階需抱嬰兒</span></div>
+      </div>
+    </div>
+    <div class="activity">
+      <div class="act-time">~15:30</div>
+      <div class="act-line st"><div class="act-dot-outer"><div class="act-dot-inner"></div></div></div>
+      <div class="act-content">
+        <div class="act-name">🏔️ 富士山世界遺產中心 9:00–17:00</div>
+        <div class="tags"><span class="tag ts">景點</span></div>
+      </div>
+    </div>
+    <div class="activity">
+      <div class="act-time">18:30</div>
+      <div class="act-line def"><div class="act-dot-outer"><div class="act-dot-inner"></div></div></div>
+      <div class="act-content">
+        <div class="act-name">🍽️ 晚餐 @富士吟景</div>
+        <div class="tags"><span class="tag tf">一泊兩食 含晚餐</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── D6 ── -->
+<div class="day-card" id="day6">
+  <div class="day-header" onclick="toggleDay('day6')">
+    <div class="day-header-left">
+      <div class="day-badge" style="background:linear-gradient(135deg,#7d3c98,#5b2480)">
+        <div class="dn">D6</div><div class="dl">回港</div>
+      </div>
+      <div class="day-info">
+        <div class="day-title">薰衣草 × OUTLETS × NH811回港</div>
+        <div class="day-date">23/06（二）· NH811 NRT→HKG</div>
+      </div>
+    </div>
+    <div class="chevron-wrap arr"><svg viewBox="0 0 14 14" fill="none"><path d="M3 5l4 4 4-4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+  </div>
+  <div class="day-body">
+    <div class="activity">
+      <div class="act-time">早上</div>
+      <div class="act-line def"><div class="act-dot-outer"><div class="act-dot-inner"></div></div></div>
+      <div class="act-content"><div class="act-name">☕ Breakfast @富士吟景（一泊兩食）</div></div>
+    </div>
+    <div class="activity">
+      <div class="act-time">09:00</div>
+      <div class="act-line st"><div class="act-dot-outer"><div class="act-dot-inner"></div></div></div>
+      <div class="act-content">
+        <div class="act-name">💐 薰衣草 @大石公園</div>
+        <div class="act-note">9:00–17:00 · 免費停車 · 草地平坦可推車</div>
+        <div class="tags"><span class="tag ts">景點</span><span class="tag tb">可推嬰兒車</span></div>
+      </div>
+    </div>
+    <div class="activity">
+      <div class="act-time">10:00</div>
+      <div class="act-line dr"><div class="act-dot-outer"><div class="act-dot-inner"></div></div></div>
+      <div class="act-content">
+        <div class="act-name">🚗 自駕 → 御殿場Premium OUTLETS（約45分鐘）</div>
+        <div class="tags"><span class="tag td">自駕</span></div>
+      </div>
+    </div>
+    <div class="activity">
+      <div class="act-time">10:00</div>
+      <div class="act-line st"><div class="act-dot-outer"><div class="act-dot-inner"></div></div></div>
+      <div class="act-content">
+        <div class="act-name">🛍️ 御殿場Premium OUTLETS</div>
+        <div class="act-note">10:00–20:00 · 免費大型停車場 · Lunch @OUTLETS</div>
+        <div class="tags"><span class="tag ts">購物</span><span class="tag tb">全棟無障礙</span></div>
+      </div>
+    </div>
+    <div class="activity">
+      <div class="act-time">~14:00</div>
+      <div class="act-line dr"><div class="act-dot-outer"><div class="act-dot-inner"></div></div></div>
+      <div class="act-content">
+        <div class="act-name">🚗 自駕 → The Park / 忍野八海（約40分鐘）</div>
+        <div class="tags"><span class="tag td">自駕</span></div>
+      </div>
+    </div>
+    <div class="activity">
+      <div class="act-time">⚠️前</div>
+      <div class="act-line warn"><div class="act-dot-outer"><div class="act-dot-inner"></div></div></div>
+      <div class="act-content">
+        <div class="act-name">🍵 Tea @The Park（15:30 關門！）</div>
+        <div class="act-note">忍野八海 *栗子* · 北口本宮富士淺間神社 8:30–16:50</div>
+        <div class="tags"><span class="tag tw">15:30前必到</span></div>
+      </div>
+    </div>
+    <div class="activity">
+      <div class="act-time">12:30</div>
+      <div class="act-line dr"><div class="act-dot-outer"><div class="act-dot-inner"></div></div></div>
+      <div class="act-content">
+        <div class="act-name">🚗 自駕 還車 河口湖→東京（約2–3小時）</div>
+        <div class="act-note">12:30–13:00 還車</div>
+        <div class="tags"><span class="tag td">還車</span></div>
+      </div>
+    </div>
+    <div class="activity">
+      <div class="act-time">⚠️急</div>
+      <div class="act-line warn"><div class="act-dot-outer"><div class="act-dot-inner"></div></div></div>
+      <div class="act-content">
+        <div class="act-name">🚌 利木津巴士 → 成田機場</div>
+        <div class="act-note">NH811 18:35起飛，須於15:00前出發！<br>新宿西口或池袋東口 · 約70–90分鐘 · 每30分鐘一班</div>
+        <div class="tags"><span class="tag tt">利木津</span><span class="tag tw">15:00前出發</span><span class="tag tb">嬰兒車放行李艙</span></div>
+      </div>
+    </div>
+    <div class="activity">
+      <div class="act-time">16:00</div>
+      <div class="act-line def"><div class="act-dot-outer"><div class="act-dot-inner"></div></div></div>
+      <div class="act-content">
+        <div class="act-name">🛍️ DUTY FREE 16:00–16:30 · T1</div>
+        <div class="tags"><span class="tag ts">免稅</span></div>
+      </div>
+    </div>
+    <div class="activity">
+      <div class="act-time">18:35</div>
+      <div class="act-line tr"><div class="act-dot-outer"><div class="act-dot-inner"></div></div></div>
+      <div class="act-content">
+        <div class="act-name">✈️ NH811 NRT → HKG 起飛 18:35</div>
+        <div class="act-note">抵港 22:35 · 訂位編號 FT3TZV</div>
+        <div class="tags"><span class="tag tt">ANA NH811</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Backup -->
+<div class="backup-title">📌 備用活動 Bank-up</div>
+<div class="backup-grid">
+  <div class="backup-card"><div class="backup-name">中野百老匯</div><div class="backup-info">10:00–20:00</div></div>
+  <div class="backup-card"><div class="backup-name">I'M DONUT</div><div class="backup-info">10:00–20:00</div></div>
+  <div class="backup-card alt"><div class="backup-name">阿佐谷神明宮</div><div class="backup-info">繡球花×手繩 9:00–17:00</div></div>
+  <div class="backup-card alt"><div class="backup-name">豪德寺 招財貓</div><div class="backup-info">6:00–17:00</div></div>
+  <div class="backup-card food"><div class="backup-name">辻半 海鮮丼</div><div class="backup-info">11:00–20:30</div></div>
+  <div class="backup-card food"><div class="backup-name">星巴克烘培工作坊</div><div class="backup-info">7:00–22:00</div></div>
+  <div class="backup-card food"><div class="backup-name">Toriton 壽司</div><div class="backup-info">午晚市</div></div>
+  <div class="backup-card food"><div class="backup-name">無敵家拉麵</div><div class="backup-info">10:30–04:00</div></div>
+  <div class="backup-card rain">
+    <div class="backup-name">🌧️ 雨天備案</div>
+    <div class="backup-info">LEGOLAND台場 $110 · Maxell Aqua Park品川 $127 · KidZania豐洲 $113 · 100% Doraemon $88（@klook/trip.com）</div>
+  </div>
+</div>
+</div><!-- /panel-itinerary -->
+
+<!-- ══════════════════════════════
+     PANEL 2: TRANSPORT
+══════════════════════════════ -->
+<div id="panel-transport" class="panel">
+<div class="panel-spacer"></div>
+
+<!-- Flight banner -->
+<div class="flight-banner">
+  <div class="flight-row">
+    <div>
+      <div class="flight-num">NH812</div>
+      <div class="flight-route">HKG → NRT · 18/06（四）</div>
+    </div>
+    <div class="flight-divider"></div>
+    <div class="flight-time">
+      <div class="flight-dep">09:30 → 15:10</div>
+      <div class="flight-arr">成田 T1</div>
+    </div>
+  </div>
+  <div class="flight-row" style="margin-top:10px;padding-top:10px;border-top:1px solid rgba(255,255,255,.1)">
+    <div>
+      <div class="flight-num">NH811</div>
+      <div class="flight-route">NRT → HKG · 23/06（二）</div>
+    </div>
+    <div class="flight-divider"></div>
+    <div class="flight-time">
+      <div class="flight-dep">18:35 → 22:35</div>
+      <div class="flight-arr">成田 T1</div>
+    </div>
+  </div>
+  <div class="flight-pax">✈️ ANA · 訂位編號 FT3TZV · 乘客：YAU WAIKUENFRANCIS · NG CHUIYI · YAU HOICHINGHANNI</div>
+</div>
+
+<div class="quick-ref">
+  <div class="qr-title">🗺️ 路線快速參考</div>
+  <div class="qr-grid">
+    <div class="qr-item">🟠 JR山手線（環狀）</div>
+    <div class="qr-item">🔴 Metro銀座線（淺草）</div>
+    <div class="qr-item">🟢 湘南新宿線（大宮）</div>
+    <div class="qr-item">🟤 ニューシャトル（鐵博）</div>
+    <div class="qr-item">🔵 利木津巴士（機場）</div>
+    <div class="qr-item">🟩 自駕（中央高速）</div>
+  </div>
+</div>
+
+<!-- D1 Airport -->
+<div class="transport-section">
+  <div class="ts-header"><div class="ts-title">D1 · NH812 成田 → 新宿酒店</div><div class="ts-date">18/06（四）</div></div>
+  <div class="steps">
+    <div class="step" onclick="toggleStep(this)">
+      <div class="step-num-col">1</div><div class="step-icon-col">🛬</div>
+      <div class="step-body">
+        <div class="step-action">成田機場 T1 入境大廳</div>
+        <div class="step-detail line-bus">NH812 到 T1 · 提取行李後跟「リムジンバス」或「N'EX」指示牌<br>🛺 利木津：T1 1樓8號站，嬰兒車放行李艙<br>N'EX：B1月台，可不折疊推入車廂</div>
+      </div>
+      <div class="step-arrow-col"><div class="step-arrow-icon"><svg viewBox="0 0 12 12" fill="none"><path d="M4 2l4 4-4 4" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div></div>
+    </div>
+    <div class="step" onclick="toggleStep(this)">
+      <div class="step-num-col">2</div><div class="step-icon-col">🚌</div>
+      <div class="step-body">
+        <div class="step-action">選項A：利木津巴士 → 新宿西口</div>
+        <div class="step-detail line-bus">成田T1→新宿西口，約90分鐘<br>Klook預訂，出示憑證上車<br>🛺 行李艙放嬰兒車，司機協助</div>
+      </div>
+      <div class="step-arrow-col"><div class="step-arrow-icon"><svg viewBox="0 0 12 12" fill="none"><path d="M4 2l4 4-4 4" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div></div>
+    </div>
+    <div class="step" onclick="toggleStep(this)">
+      <div class="step-num-col">3</div><div class="step-icon-col">🚆</div>
+      <div class="step-body">
+        <div class="step-action">選項B：成田特快 N'EX → 新宿</div>
+        <div class="step-detail line-jr">成田→新宿直通，約90分鐘，¥3,070<br>🛺 設升降機，嬰兒車可上車</div>
+      </div>
+      <div class="step-arrow-col"><div class="step-arrow-icon"><svg viewBox="0 0 12 12" fill="none"><path d="M4 2l4 4-4 4" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- D2 Asakusa -->
+<div class="transport-section">
+  <div class="ts-header"><div class="ts-title">D2 · 新宿 → 淺草 → 新宿</div><div class="ts-date">19/06（五）</div></div>
+  <div class="steps">
+    <div class="step" onclick="toggleStep(this)">
+      <div class="step-num-col">1</div><div class="step-icon-col">🚃</div>
+      <div class="step-body">
+        <div class="step-action">新宿 → JR山手線（外回り）→ 上野</div>
+        <div class="step-detail line-jr">新宿站 JR山手線「外回り」（順時針）方向<br>約20分鐘至上野站</div>
+      </div>
+      <div class="step-arrow-col"><div class="step-arrow-icon"><svg viewBox="0 0 12 12" fill="none"><path d="M4 2l4 4-4 4" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div></div>
+    </div>
+    <div class="step" onclick="toggleStep(this)">
+      <div class="step-num-col">2</div><div class="step-icon-col">🔄</div>
+      <div class="step-body">
+        <div class="step-action">上野 → Metro銀座線 → 淺草（1站）</div>
+        <div class="step-detail line-metro">上野站跟「銀座線」指示，方向「浅草」<br>約3分鐘，1站</div>
+      </div>
+      <div class="step-arrow-col"><div class="step-arrow-icon"><svg viewBox="0 0 12 12" fill="none"><path d="M4 2l4 4-4 4" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div></div>
+    </div>
+    <div class="step" onclick="toggleStep(this)">
+      <div class="step-num-col">3</div><div class="step-icon-col">🚪</div>
+      <div class="step-body">
+        <div class="step-action">淺草站 1號出口（升降機）出閘</div>
+        <div class="step-detail line-metro">銀座線淺草站 1號出口設升降機<br>直達雷門方向，步行約2分鐘<br>🛺 升降機可推嬰兒車出閘</div>
+      </div>
+      <div class="step-arrow-col"><div class="step-arrow-icon"><svg viewBox="0 0 12 12" fill="none"><path d="M4 2l4 4-4 4" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div></div>
+    </div>
+    <div class="step" onclick="toggleStep(this)">
+      <div class="step-num-col">4</div><div class="step-icon-col">🔄</div>
+      <div class="step-body">
+        <div class="step-action">淺草 → 新宿（返回）</div>
+        <div class="step-detail line-metro">淺草站銀座線→上野 → JR山手線（内回り）→新宿<br>約35–40分鐘</div>
+      </div>
+      <div class="step-arrow-col"><div class="step-arrow-icon"><svg viewBox="0 0 12 12" fill="none"><path d="M4 2l4 4-4 4" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- D3 Omiya + Ikebukuro -->
+<div class="transport-section">
+  <div class="ts-header"><div class="ts-title">D3 · 新宿→大宮→淺草→池袋→新宿</div><div class="ts-date">20/06（六）</div></div>
+  <div class="steps">
+    <div class="step" onclick="toggleStep(this)">
+      <div class="step-num-col">1</div><div class="step-icon-col">🚃</div>
+      <div class="step-body">
+        <div class="step-action">新宿 → 湘南新宿線（快速）→ 大宮</div>
+        <div class="step-detail line-jr">新宿站湘南新宿線「快速」往「宇都宮/高崎」方向<br>大宮站下車 · 2號出口（設升降機）<br>約30分鐘</div>
+      </div>
+      <div class="step-arrow-col"><div class="step-arrow-icon"><svg viewBox="0 0 12 12" fill="none"><path d="M4 2l4 4-4 4" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div></div>
+    </div>
+    <div class="step" onclick="toggleStep(this)">
+      <div class="step-num-col">2</div><div class="step-icon-col">🚈</div>
+      <div class="step-body">
+        <div class="step-action">大宮 → ニューシャトル → 鐵道博物館（3分鐘）</div>
+        <div class="step-detail line-jr">大宮站旁「ニューシャトル」乘車處<br>「鉄道博物館（大成）」站下車<br>🛺 ニューシャトル設升降機</div>
+      </div>
+      <div class="step-arrow-col"><div class="step-arrow-icon"><svg viewBox="0 0 12 12" fill="none"><path d="M4 2l4 4-4 4" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div></div>
+    </div>
+    <div class="step" onclick="toggleStep(this)">
+      <div class="step-num-col">3</div><div class="step-icon-col">🔄</div>
+      <div class="step-body">
+        <div class="step-action">大宮 → 淺草 → 池袋</div>
+        <div class="step-detail line-jr">大宮→上野（JR京浜東北線）→淺草（銀座線）<br>淺草→上野→池袋（JR山手線外回り）<br>總計約60–70分鐘</div>
+      </div>
+      <div class="step-arrow-col"><div class="step-arrow-icon"><svg viewBox="0 0 12 12" fill="none"><path d="M4 2l4 4-4 4" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div></div>
+    </div>
+    <div class="step" onclick="toggleStep(this)">
+      <div class="step-num-col">4</div><div class="step-icon-col">🔄</div>
+      <div class="step-body">
+        <div class="step-action">池袋 → 新宿（返酒店）</div>
+        <div class="step-detail line-jr">JR山手線（内回り）→新宿，約10分鐘</div>
+      </div>
+      <div class="step-arrow-col"><div class="step-arrow-icon"><svg viewBox="0 0 12 12" fill="none"><path d="M4 2l4 4-4 4" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- D4 Drive -->
+<div class="transport-section">
+  <div class="ts-header"><div class="ts-title">D4 · 自駕：新宿 → 河口湖</div><div class="ts-date">21/06（日）</div></div>
+  <div class="steps">
+    <div class="step" onclick="toggleStep(this)">
+      <div class="step-num-col">1</div><div class="step-icon-col">🚗</div>
+      <div class="step-body">
+        <div class="step-action">8:00 取車 · 9:00 出發</div>
+        <div class="step-detail line-drive">確認租車公司地址，步行或的士前往<br>記錄車牌、保險文件、ETC卡</div>
+      </div>
+      <div class="step-arrow-col"><div class="step-arrow-icon"><svg viewBox="0 0 12 12" fill="none"><path d="M4 2l4 4-4 4" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div></div>
+    </div>
+    <div class="step" onclick="toggleStep(this)">
+      <div class="step-num-col">2</div><div class="step-icon-col">🛣️</div>
+      <div class="step-body">
+        <div class="step-action">新宿 → 首都高速 → 中央高速 → 河口湖IC</div>
+        <div class="step-detail line-drive">新宿→首都高速4號→中央高速→大月JCT→河口湖IC<br>約2–2.5小時（視交通）<br>談合坂SA 中途休息：設尿布台及育嬰室<br>🛺 各景點停車場均可放嬰兒車</div>
+      </div>
+      <div class="step-arrow-col"><div class="step-arrow-icon"><svg viewBox="0 0 12 12" fill="none"><path d="M4 2l4 4-4 4" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div></div>
+    </div>
+    <div class="step" onclick="toggleStep(this)">
+      <div class="step-num-col">3</div><div class="step-icon-col">🅿️</div>
+      <div class="step-body">
+        <div class="step-action">河口湖IC出後 → 富士野生動物園</div>
+        <div class="step-detail line-drive">河口湖IC出高速後沿139號線<br>富士野生動物園有免費停車場</div>
+      </div>
+      <div class="step-arrow-col"><div class="step-arrow-icon"><svg viewBox="0 0 12 12" fill="none"><path d="M4 2l4 4-4 4" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- D6 Return -->
+<div class="transport-section">
+  <div class="ts-header"><div class="ts-title">D6 · 還車 → 成田 → NH811回港</div><div class="ts-date">23/06（二）</div></div>
+  <div class="steps">
+    <div class="step" onclick="toggleStep(this)">
+      <div class="step-num-col">1</div><div class="step-icon-col">🚗</div>
+      <div class="step-body">
+        <div class="step-action">12:30–13:00 自駕 還車</div>
+        <div class="step-detail line-drive">中央高速→首都高速→東京市內<br>車程約2–3小時，建議盡早出發</div>
+      </div>
+      <div class="step-arrow-col"><div class="step-arrow-icon"><svg viewBox="0 0 12 12" fill="none"><path d="M4 2l4 4-4 4" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div></div>
+    </div>
+    <div class="step" onclick="toggleStep(this)">
+      <div class="step-num-col">2</div><div class="step-icon-col">⚠️</div>
+      <div class="step-body">
+        <div class="step-action">⚠️ 15:00前 乘利木津巴士往成田</div>
+        <div class="step-detail line-bus">NH811 18:35起飛，須15:00前出發！<br>新宿西口或池袋東口利木津巴士站→成田T1<br>約70–90分鐘，每30分鐘一班<br>🛺 嬰兒車放行李艙，司機協助</div>
+      </div>
+      <div class="step-arrow-col"><div class="step-arrow-icon"><svg viewBox="0 0 12 12" fill="none"><path d="M4 2l4 4-4 4" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div></div>
+    </div>
+    <div class="step" onclick="toggleStep(this)">
+      <div class="step-num-col">3</div><div class="step-icon-col">🛍️</div>
+      <div class="step-body">
+        <div class="step-action">成田T1 · DUTY FREE 16:00–16:30</div>
+        <div class="step-detail line-walk">完成登機手續後前往免稅區<br>NH811 NRT→HKG 18:35 T1出發，抵港22:35<br>訂位編號 FT3TZV</div>
+      </div>
+      <div class="step-arrow-col"><div class="step-arrow-icon"><svg viewBox="0 0 12 12" fill="none"><path d="M4 2l4 4-4 4" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div></div>
+    </div>
+  </div>
+</div>
+</div><!-- /panel-transport -->
+
+<!-- ══════════════════════════════
+     PANEL 3: STROLLER
+══════════════════════════════ -->
+<div id="panel-stroller" class="panel">
+<div class="panel-spacer"></div>
+<div class="wa-divider">✦ ✦ ✦</div>
+
+<div class="tip-category">🗺️ 導航設定</div>
+<div class="tip-card good">
+  <div class="tip-title">📱 Google Maps 無障礙路線</div>
+  <div class="tip-body">出發前在 Google Maps 開啟「Wheelchair accessible」，系統自動避開無升降機車站，並顯示升降機位置。</div>
+</div>
+
+<div class="tip-category">🚃 地鐵 / JR</div>
+<div class="tip-card good">
+  <div class="tip-title">✅ 嬰兒車不需折疊</div>
+  <div class="tip-body">JR 及東京Metro車廂內嬰兒車可不折疊。繁忙時段請靠近車廂連接處，避免阻礙其他乘客。</div>
+</div>
+<div class="tip-card">
+  <div class="tip-title">🛗 升降機友善站點</div>
+  <div class="tip-body">
+    <b>新宿站</b>：各出口均設升降機<br>
+    <b>淺草站（銀座線）</b>：1號出口，近雷門<br>
+    <b>上野站</b>：JR與Metro換乘均有升降機<br>
+    <b>大宮站</b>：2號出口升降機<br>
+    <b>池袋站</b>：各線月台端部均有升降機
+  </div>
+</div>
+<div class="tip-card warn">
+  <div class="tip-title">⏰ 避開繁忙時段</div>
+  <div class="tip-body">工作日 07:30–09:30 及 17:30–19:30 為繁忙時段，建議錯峰出行。</div>
+</div>
+
+<div class="tip-category">⛩️ 神社 / 景點</div>
+<div class="tip-card good">
+  <div class="tip-title">🌊 淺草寺 / 隅田公園</div>
+  <div class="tip-body">範圍平坦，嬰兒車全程暢通。隅田公園繡球花步道可全程推車。</div>
+</div>
+<div class="tip-card warn">
+  <div class="tip-title">🏯 本宮淺間大社 石階</div>
+  <div class="tip-body">主參道可推嬰兒車，通往主殿的石階需抱嬰兒，嬰兒車停放石階下方。</div>
+</div>
+<div class="tip-card warn">
+  <div class="tip-title">🐄 馬飼野牧場</div>
+  <div class="tip-body">草地開闊，大部分可推車，但部分草地路段較軟，需稍用力推行。</div>
+</div>
+<div class="tip-card good">
+  <div class="tip-title">💐 大石公園（薰衣草）</div>
+  <div class="tip-body">草地平坦，免費停車場，嬰兒車從車尾箱取出即可推行，非常方便。</div>
+</div>
+<div class="tip-card good">
+  <div class="tip-title">🛍️ 御殿場Premium OUTLETS</div>
+  <div class="tip-body">全棟無障礙設計，走廊寬闊，嬰兒車全程暢通，自駕途中最輕鬆的景點。</div>
+</div>
+
+<div class="tip-category">🚗 自駕日（D4–D6）</div>
+<div class="tip-card good">
+  <div class="tip-title">✅ 自駕最嬰兒車友善</div>
+  <div class="tip-body">嬰兒車折疊後放車尾箱，每個景點均有停車場，靈活度最高，無需顧慮地鐵升降機。</div>
+</div>
+<div class="tip-card">
+  <div class="tip-title">🅿️ 高速服務區 尿布台</div>
+  <div class="tip-body">中央高速談合坂SA等服務區均設有尿布台（おむつ台）及育嬰室，可放心長途行駛。</div>
+</div>
+
+<div class="tip-category">✈️ 機場巴士</div>
+<div class="tip-card good">
+  <div class="tip-title">🚌 利木津巴士最推薦</div>
+  <div class="tip-body">往返成田機場建議選利木津巴士，行李艙收納嬰兒車，司機協助放置，毋需折疊，最適合攜帶大量行李的家庭。</div>
+</div>
+
+<div class="tip-category">💡 嬰兒車選擇建議</div>
+<div class="tip-card info">
+  <div class="tip-title">🛺 適合此行的嬰兒車</div>
+  <div class="tip-body">
+    推薦輕便可折疊型（如 Babyzen YOYO / Cybex Libelle）<br>
+    大輪徑（≥7吋）更適應神社石板路<br>
+    備雨罩：6月梅雨季，多備一層保護
+  </div>
+</div>
+
+<div class="wa-divider">✦ ✦ ✦</div>
+<div class="footer-note">祝旅途愉快！Tokyo 2025 Summer 🗻👶</div>
+</div><!-- /panel-stroller -->
+
+<div class="bottom-fade"></div>
+
+<script>
+function updateHeaderHeight() {
+  const h = document.querySelector('.header').offsetHeight;
+  document.documentElement.style.setProperty('--header-h', h + 'px');
+  document.querySelectorAll('.panel-spacer').forEach(s => s.style.height = h + 'px');
+}
+updateHeaderHeight();
+window.addEventListener('resize', updateHeaderHeight);
+
+function switchTab(name) {
+  ['itinerary','transport','stroller'].forEach((n,i) => {
+    document.querySelectorAll('.tab')[i].classList.toggle('active', n===name);
+  });
+  document.querySelectorAll('.panel').forEach(p => {
+    p.classList.toggle('active', p.id==='panel-'+name);
+  });
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function toggleDay(id) {
+  document.getElementById(id).classList.toggle('open');
+}
+
+function toggleStep(el) {
+  el.classList.toggle('open');
+}
+
+document.getElementById('day1').classList.add('open');
+</script>
+</body>
+</html>
